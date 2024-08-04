@@ -3,21 +3,26 @@
 In this lab, you will deploy a GKE cluster with a 'Hello World!' application and upgrade the machine type of the node pool while keeping the workloads up and running with zeor downtime. 
 
 <!-- Task1 -->
+## Enable the Kubernetes Engine API
+```sh
+gcloud services enable container.googleapis.com
+  ```
+
+<!-- Task2 -->
 ## Set the environment variable for the zone and cluster name
   ```sh
 export ZONE=
 export CLUSTER=
   ```
 
-<!-- Task2 -->
+<!-- Task3 -->
 ## Create a Kubernetes cluster
-
   ```sh
-  gcloud container clusters create $CLUSTER --num-nodes 3 --zone $ZONE --enable-ip-alias
+  gcloud container clusters create $CLUSTER --num-nodes 3 --zone $ZONE --machine-type=e2-micro --enable-ip-alias
   ```  
 
-<!-- Task3 -->
-## 
+<!-- Task4 -->
+## Deploy sample Hello app
   ```sh
  
   ```
