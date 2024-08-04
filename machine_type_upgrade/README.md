@@ -11,94 +11,88 @@ gcloud services enable container.googleapis.com
 <!-- Task2 -->
 ## Set the environment variable for the zone and cluster name
   ```sh
-export ZONE=
+export REGION=
 export CLUSTER=
   ```
 
 <!-- Task3 -->
 ## Create a Kubernetes cluster
   ```sh
-  gcloud container clusters create $CLUSTER --num-nodes 3 --zone $ZONE --machine-type=e2-micro --enable-ip-alias
+gcloud container clusters create $CLUSTER --num-nodes 1 --region $REGION --machine-type=e2-medium --enable-ip-alias
   ```  
 
 <!-- Task4 -->
 ## Deploy sample Hello app
   ```sh
- 
+kubectl apply -f hello-app.yaml 
   ```
 
-<!-- Task4 -->
-## 
+## Verify the node pool, nodes, and pods are running
   ```sh
-
+kubectl get nodes
+kubectl get pods -o=wide
   ``` 
+
+## Verify the hello application is running
+  ```sh
+kubectl get services
+  ```
 
 <!-- Task5 -->
-## Deploy Pods to GKE clusters
+## Create the new node pool with a larger machine type
   ```sh
-kubectl create deployment --image nginx nginx-1
+gcloud container node-pools create larger-pool --cluster=sample-cluster --num-nodes=1 --machine-type=e2-highmem-2
   ```
+
+## Verify the new pool and nodes are ready
+ ```sh
+gcloud container node-pools list --cluster $CLUSTER --region $REGION
+kubectl get nodes -l cloud.google.com/gke-nodepool=larger-pool
+ ```
 
 <!-- Task6 -->
-## View all the deployed Pods in the active context cluster
-  ```sh
-kubectl get pods
-  ```
+## Migrating the application workloads
+This task will require the following steps:
+* Cordon the existing node pool - this will mark the nodes in the current pool as 'unschedulable' so GKE stops assigning new pods to these nodes
+* Drain the existing node pool - this will evict the workloads running in the existing node pool gracefully without downtime
 
-<!-- Task7 -->
-## Enter your Pod name into a variable
- ```sh
-  export nginx_pod=
- ```
-
-<!-- Task8 -->
-## To be able to serve static content through the nginx web server, you must create and place a file into the container. 
+## Cordon the existing node pool
   ```sh
-  echo << EOF > test.html
-<html> <header><title>This is title</title></header>
-<body> Hello world </body>
-</html>
-EOF
+for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=default-pool -o=name); do
+     kubectl cordon "$node";
+  done
   ``` 
 
-<!-- Task9 -->
-## Place the file into the appropriate location within the nginx container in the nginx Pod to be served statically
+## Drain the existing node pool
   ```sh
-kubectl cp ~/test.html $nginx_pod:/usr/share/nginx/html/test.html
+for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=default-pool -o=name); do
+  kubectl drain --force --ignore-daemonsets --delete-emptydir-data --grace-period=10  "$node";
+done
+
   ```
 
-<!-- Task10 -->
-## Create a service to expose our nginx Pod externally
+## Verify the nodes in the existing node pool have SchedulingDisabled status in the node list
  ```sh
-  kubectl expose pod $nginx_pod --port 80 --type LoadBalancer
+kubectl get nodes  
  ```   
 
-<!-- Task11 -->
-## View details about services in the cluster
+## View the pods are now running on the nodes in the new node pool
   ```sh
-   kubectl get services
+kubectl get pods -o=wide
   ```
 
-<!-- Task12 -->
-## Enter External IP into a variable
- ```sh
-  export EXTERNAL_IP=
- ```
+Verify in browser if the hello app is still running
 
-<!-- Task13 -->
-## Verify that the nginx container is serving the static HTML file that you copied
-  ```sh
-   curl http://$EXTERNAL_IP/test.html
-  ```
 
-<!-- Task14 -->
+<!-- Task7 -->
 ## Delete created resources 
   ```sh
-kubectl delete -f deployment nginx
+kubectl delete -f deployment hello-app
   ```
+
 ## Delete cluster
 ```sh
-gcloud container clusters delete $CLUSTER --zone $ZONE
+gcloud container clusters delete $CLUSTER --region $REGION
 ```
 
 
