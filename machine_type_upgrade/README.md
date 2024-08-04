@@ -1,6 +1,6 @@
 <!-- Overview -->
 ## Overview
-In this lab, you will deploy a GKE cluster with a 'Hello World!' application and upgrade the machine type of the node pool while keeping the workloads up and running with zeor downtime. 
+In this lab, you will deploy a GKE cluster with a 'Hello World!' application and upgrade the machine type of the node pool while keeping the workloads up and running with zero downtime. 
 
 <!-- Task1 -->
 ## Enable the Kubernetes Engine API
