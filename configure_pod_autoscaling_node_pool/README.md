@@ -61,12 +61,16 @@ The kubectl autoscale command creates a HorizontalPodAutoscaler object that targ
 kubectl get hpa   
   ```
 
-4. 
+##  Inspect the configuration of HorizontalPodAutoscaler in table form
   ```sh
-   
+kubectl describe horizontalpodautoscaler web   
   ```
 
-5. 
+<!-- Task7 -->
+## Test the autoscale configuration
+You need to create a heavy load on the web application to force it to scale out.
+
+1. Create the loadgen.yaml file
  ```sh
    
  ```
