@@ -33,7 +33,7 @@ export CLUSTER=
 ## Create a sample deployment manifest called nginx-deployment.yaml
 This deployment is configured to run three Pod replicas with a single nginx container in each Pod listening on TCP port 80.
   ```sh
-  cat << EOF > nginx-deployment.yaml
+cat > nginx-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -55,7 +55,6 @@ spec:
         image: nginx:1.7.9
         ports:
         - containerPort: 80
-EOF
   ``` 
 
 <!-- Task5 -->
@@ -129,7 +128,7 @@ kubectl rollout history deployment/nginx-deployment --revision=3
 In this task, you create and verify a service that controls inbound traffic to an application. Services can be configured as ClusterIP, NodePort or LoadBalancer types. 
 Create manifest file called service-nginx.yaml that deploys a LoadBalancer service type. 
   ```sh
-cat << EOF > service-nginx.yaml
+cat > service-nginx.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -141,8 +140,7 @@ spec:
   ports:
   - protocol: TCP
     port: 60000
-    targetPort: 80
-EOF   
+    targetPort: 80 
   ```
 This service is configured to distribute inbound traffic on TCP port 60000 to port 80 on any containers that have the label app: nginx.
 
@@ -165,7 +163,7 @@ nginx     10.X.X.X        X.X.X.X          60000/TCP    run=nginx   1m
 <!-- Task18 -->
 ## Create a canary deployment file called nginx-canary.yaml to deploy a single pod running a newer version of nginx than your main deployment.
   ```sh
-cat << EOF > nginx-canary.yaml
+cat > nginx-canary.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -189,7 +187,6 @@ spec:
         image: nginx:1.9.1
         ports:
         - containerPort: 80
-EOF
   ```
 
 <!-- Task19 -->
