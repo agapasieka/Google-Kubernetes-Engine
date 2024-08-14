@@ -72,7 +72,7 @@ You need to create a heavy load on the web application to force it to scale out.
 
 1. Create the loadgen.yaml file
  ```sh
- echo << EOF >   loadgen.yaml
+cat > loadgen.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -94,8 +94,6 @@ spec:
         - /bin/sh
         - -c
         - while true; do wget -q -O- http://web:8080; done
-EOF
-
  ```
 
 2. Deploy the container
