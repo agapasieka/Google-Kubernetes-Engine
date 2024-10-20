@@ -1,7 +1,7 @@
 <!-- Overview -->
 ## Overview
 In this lab you will build a Docker container image from provided code and a Dockerfile using Cloud Build. You will then upload the container to the Artifact Registry.
-Follow the steps in Cloud Shell or using local terminal of your choice. 
+Follow the steps in Cloud Shell or use local terminal of your choice. 
 
 <!-- Task1 -->
 ## Enable APIs
