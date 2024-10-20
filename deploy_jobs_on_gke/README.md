@@ -6,6 +6,7 @@ In this lab, you learn how to perform the following tasks:
 * Define, deploy and clean up a GKE CronJob
 
 In GKE, a **Job** is a controller that handles one-time tasks that eventually finish. It starts a task (usually in a Pod) and keeps track of it until it’s done. Once the task completes successfully, the Job also finishes. Unlike other controllers that keep things running (like Deployments, which always try to keep a certain number of Pods running), a Job is just about making sure the task gets done once.
+
 A **CronJob** is like a Job, but it runs at specific times or intervals (similar to setting an alarm). For example, you can use a CronJob to perform regular tasks like backups, cleaning up old files, or generating reports. It uses Job objects to do the actual work b
 
 Perform steps in cloud shell or terminal of your choice. 
