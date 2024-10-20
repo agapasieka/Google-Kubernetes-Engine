@@ -9,7 +9,7 @@ In GKE, a **Job** is a controller that handles one-time tasks that eventually fi
 
 A **CronJob** is like a Job, but it runs at specific times or intervals (similar to setting an alarm). For example, you can use a CronJob to perform regular tasks like backups, cleaning up old files, or generating reports. It uses Job objects to do the actual work b
 
-Perform steps in cloud shell or terminal of your choice. 
+Perform below steps in cloud shell or terminal of your choice. 
 
 <!-- Task1 -->
 ## Set the environment variable for the zone and cluster name
