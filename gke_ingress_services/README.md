@@ -130,6 +130,7 @@ spec:
         - containerPort: 8080
           protocol: TCP
 ```
+Ctrl + C to exit
 
 ## Start a new Cloud Shell session and create a deployment from the hello-v1.yaml
 ```
@@ -158,6 +159,8 @@ spec:
     port: 80
     targetPort: 8080
 ```
+Ctrl + C to exit
+
 ## Deploy the ClusterIP service
 ```
 kubectl apply -f hello-svc.yaml
@@ -205,6 +208,8 @@ spec:
     targetPort: 8080
     nodePort: 30100
 ```
+Ctrl + C to exit
+
 ## Deploy the manifest that changes the service type for the hello-svc to NodePort
 ```
 kubectl apply -f hello-nodeport-svc.yaml
