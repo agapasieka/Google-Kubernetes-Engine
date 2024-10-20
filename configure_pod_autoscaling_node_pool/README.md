@@ -111,6 +111,7 @@ kubectl get deployment
 kubectl get hpa   
   ```
 Once the loadgen Pod starts to generate traffic, the web deployment CPU utilization begins to increase.
+
 5. To stop the load on the web application, scale the loadgen deployment to zero replicas
   ```sh
 kubectl scale deployment loadgen --replicas 0  
