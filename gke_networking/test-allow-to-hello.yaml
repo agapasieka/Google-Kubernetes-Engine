@@ -1,0 +1,21 @@
+ apiVersion: networking.k8s.io/v1
+ kind: NetworkPolicy
+ metadata:
+   name: test-allow-to-hello
+ spec:
+   policyTypes:
+   - Egress
+   podSelector:
+     matchLabels:
+       app: test
+   egress:
+   - to:
+     - podSelector:
+         matchLabels:
+           app: hello
+   - to:
+     ports:
+     - protocol: TCP
+       port: 53
+     - protocol: UDP
+       port: 53
