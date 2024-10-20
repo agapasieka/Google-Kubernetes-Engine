@@ -124,6 +124,8 @@ kubectl get deployment
 
 <!-- Task7 -->
 ## Manage node pools
+In this task, you create a new pool of nodes using preemptible instances, and then you constrain the web deployment to run only on the preemptible nodes.
+
 1. Deploy a new node pool with two preemptible VM instances
  ```sh
 gcloud container node-pools create "temp-pool-1" \
@@ -140,15 +142,15 @@ kubectl get nodes
   ```sh
 kubectl get nodes -l temp=true
   ```
-
+## Control scheduling with taints and tolerations 
 To prevent the scheduler from running a Pod on the temporary nodes, you add a taint to each of the nodes in the temp pool. Taints are implemented as a key-value pair with an effect (such as NoExecute) that determines whether Pods can run on a certain node. Only nodes that are configured to tolerate the key-value of the taint are scheduled to run on these nodes.
 
-4. Add a taint to each of the newly created nodes
+1. Add a taint to each of the newly created nodes
   ```sh
 kubectl taint node -l temp=true nodetype=preemptible:NoExecute
   ```
 
-5. Allow application Pods to execute on these tainted nodes, by editing the web.yaml file and adding a tolerations key to the deployment configuration.
+2. Allow application Pods to execute on these tainted nodes, by editing the web.yaml file and adding a tolerations key to the deployment configuration.
  ```sh
 tolerations:
 - key: "nodetype"
@@ -176,13 +178,13 @@ The spec section of file should look like:
           requests:
             cpu: "250m"
 ```
-6. Force the web deployment to use the new node-pool by adding a nodeSelector key in the template's spec section. 
+3. Force the web deployment to use the new node-pool by adding a nodeSelector key in the template's spec section. 
  ```sh
      nodeSelector:
         temp: "true"
  ```
 
-7. The full web.yaml deployment should now look as follows:
+4. The full web.yaml deployment should now look as follows:
  ```sh
  apiVersion: apps/v1
 kind: Deployment
@@ -217,22 +219,22 @@ spec:
             cpu: "250m"
  ```
 
-8.  Apply this change
+5.  Apply this change
  ```sh
 kubectl apply -f web.yaml
  ```
 
-9. Confirm the change by inspecting the running web Pod(s)
+6. Confirm the change by inspecting the running web Pod(s)
  ```sh
 kubectl describe pods -l run=web
  ```
 
-10. Force the web application to scale out again, scale the loadgen deployment back to four replicas
+7. Force the web application to scale out again, scale the loadgen deployment back to four replicas
  ```sh
 kubectl scale deployment loadgen --replicas 4
  ```
 
-11. Get the list of Pods using the wide output format to show the nodes running the Pods
+8. Get the list of Pods using the wide output format to show the nodes running the Pods
  ```sh
 kubectl get pods -o wide
  ```
