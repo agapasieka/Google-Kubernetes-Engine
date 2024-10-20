@@ -188,7 +188,7 @@ spec:
         ports:
         - containerPort: 80
   ```
-
+The nginx service we deployed in previous task uses label selector to target the Pods with the app: nginx label. Both the normal deployment and this new canary deployment have the app: nginx label. Inbound connections will be distributed by the service to both the normal and canary deployment Pods. The canary deployment has fewer replicas (Pods) than the normal deployment, and thus it is available to fewer users than the normal deployment.
 <!-- Task19 -->
 ## Create the canary deployment based on the configuration file
   ```sh
