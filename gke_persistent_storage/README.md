@@ -9,6 +9,7 @@ In this lab, you will perform the following tasks:
 * Verify the connection of Pods in StatefulSets to particular PVs as the Pods are stopped and restarted
 
 **PersistentVolumes** are storage that is available to a Kubernetes cluster. 
+
 **PersistentVolumeClaims** enable Pods to access PersistentVolumes. 
 Without PersistentVolumeClaims Pods are mostly ephemeral, so you should use PersistentVolumeClaims for any data that you expect to survive Pod scaling, updating, or migrating.
 
