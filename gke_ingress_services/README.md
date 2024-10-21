@@ -1,6 +1,6 @@
 # Overview
 
-In this lab, you learn how to perform the following tasks:
+In this lab, you will perform the following tasks:
 
 * Observe Kubernetes DNS in action.
 * Define various service types (ClusterIP, NodePort, LoadBalancer) in manifests along with label selectors to connect to existing labeled Pods and deployments, deploy those to a cluster, and test connectivity.
@@ -8,6 +8,7 @@ In this lab, you learn how to perform the following tasks:
 * Verify Google Cloud network load balancer creation for type=LoadBalancer services.
 
 Perform the tasks in CLoud Shell or use your favourite terminal. 
+
 ## Set the environment variable for the zone and cluster name
 ```
 export ZONE=
