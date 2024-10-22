@@ -15,7 +15,7 @@ export ZONE=
 export CLUSTER=
 ```
 
-## Create a Kubernetes cluster
+## Create a GKE cluster
 ```
 gcloud container clusters create $CLUSTER --num-nodes 3 --zone $ZONE --enable-ip-alias
 ```  
