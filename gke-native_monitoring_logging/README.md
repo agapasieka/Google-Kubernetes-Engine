@@ -154,3 +154,16 @@ Create an Alert Policy
 14. Configure Notification Channel
 15. Name the alert CPU request utilization
 16. Review the alert and click Create Policy.
+
+
+## Delete created resources
+```
+kubectl delete -f hello-v2.yaml
+kubectl delete -f gcp-gke-monitor-test.yaml
+```
+## Delete cluster
+```
+gcloud container clusters delete $CLUSTER --zone $ZONE
+```
+
+# The End    
